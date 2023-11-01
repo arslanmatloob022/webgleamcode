@@ -1,0 +1,38 @@
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: #f2f2f2;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+}
+
+.loader div {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #3498db;
+  position: absolute;
+  transition: all 3s ease-in-out;
+  animation: moveCircle 3s ease-in-out infinite;
+}
+
+@keyframes moveCircle {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+

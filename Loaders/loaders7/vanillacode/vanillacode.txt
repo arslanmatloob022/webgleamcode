@@ -1,0 +1,57 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loader</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="loader">
+    <div class="line" style="background-color: green;"></div>
+    <div class="line" style="background-color: red;"></div>
+    <div class="line" style="background-color: blue;"></div>
+    <div class="line" style="background-color: yellow;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//styling
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.line {
+  width: 4px;
+  height: 20px;
+  margin: 0 10px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(-20px) rotate(360deg);
+  }
+}
