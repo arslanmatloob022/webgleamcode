@@ -1,0 +1,268 @@
+//jsx
+import React, { useEffect } from "react";
+import "./App.css";
+
+function App() {
+  useEffect(() => {
+    const balloonsContainer = document.getElementById("balloons-container");
+
+    function createBalloon() {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.top = `${Math.random() * 100}vh`;
+      balloon.style.left = `${Math.random() * 100}vw`;
+      balloon.style.animationDuration = `${Math.random() * 20 + 5}s`;
+      balloon.style.animationDelay = `${Math.random() * 5}s`;
+      balloon.style.backgroundColor = getRandomColor();
+      balloonsContainer.appendChild(balloon);
+
+      balloon.addEventListener("animationiteration", () => {
+        balloon.style.top = `${Math.random() * 100}vh`;
+        balloon.style.left = `${Math.random() * 100}vw`;
+        balloon.style.animationDuration = `${Math.random() * 20 + 5}s`;
+        balloon.style.animationDelay = `${Math.random() * 5}s`;
+        balloon.style.backgroundColor = getRandomColor();
+      });
+    }
+
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    const balloonInterval = setInterval(createBalloon, 2000);
+
+    return () => clearInterval(balloonInterval);
+  }, []);
+
+  return (
+    <div className="balloon-animation">
+      <h3>Flying Balloons Animation</h3>
+      <div id="balloons-container"></div>
+    </div>
+  );
+}
+
+export default App;
+
+
+//css
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.balloon-animation {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.balloon-animation h3 {
+  text-align: center;
+  color: #fff;
+}
+
+.balloon {
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  background-color: #ff69b4;
+  border-radius: 50% 50% 0 0;
+  transform: translate(-50%, -50%);
+  animation: float 10s infinite, colorChange 5s infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-620vh);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #ff69b4;
+  }
+  100% {
+    background-color: #87ceeb;
+  }
+}
+
+
+
+<script>
+export default {
+  data() {
+    return {
+      balloons: [],
+    };
+  },
+  computed: {
+    totalBalloons() {
+      return 30; // Adjust the number of balloons
+    },
+  },
+  methods: {
+    createBalloon() {
+      return {
+        style: {
+          top: `${Math.random() * 100}vw`,
+          left: `${Math.random() * 100}vw`,
+          animationDuration: `${Math.random() * 20 + 5}s`,
+          animationDelay: `${Math.random() * 5}s`,
+          backgroundColor: this.getRandomColor(),
+        },
+      };
+    },
+    getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    },
+  },
+  created() {
+    for (let i = 0; i < this.totalBalloons; i++) {
+      this.balloons.push(this.createBalloon());
+    }
+  },
+};
+</script>
+
+<style scoped>
+.balloon-animation {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+.balloon-animation h3 {
+  text-align: center;
+  color: #fff;
+}
+.balloon {
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  background-color: #ff69b4;
+  border-radius: 50% 50% 0 0;
+  transform: translate(-50%, -50%);
+  animation: float 10s infinite, colorChange 5s infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-620vh);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #ff69b4;
+  }
+  100% {
+    background-color: #87ceeb;
+  }
+}
+</style>
+
+<script>
+export default {
+  data() {
+    return {
+      balloons: [],
+    };
+  },
+  computed: {
+    totalBalloons() {
+      return 30; // Adjust the number of balloons
+    },
+  },
+  methods: {
+    createBalloon() {
+      return {
+        style: {
+          top: `${Math.random() * 100}vw`,
+          left: `${Math.random() * 100}vw`,
+          animationDuration: `${Math.random() * 20 + 5}s`,
+          animationDelay: `${Math.random() * 5}s`,
+          backgroundColor: this.getRandomColor(),
+        },
+      };
+    },
+    getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    },
+  },
+  created() {
+    for (let i = 0; i < this.totalBalloons; i++) {
+      this.balloons.push(this.createBalloon());
+    }
+  },
+};
+</script>
+
+<style scoped>
+.balloon-animation {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+.balloon-animation h3 {
+  text-align: center;
+  color: #fff;
+}
+.balloon {
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  background-color: #ff69b4;
+  border-radius: 50% 50% 0 0;
+  transform: translate(-50%, -50%);
+  animation: float 10s infinite, colorChange 5s infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-620vh);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #ff69b4;
+  }
+  100% {
+    background-color: #87ceeb;
+  }
+}
+</style>

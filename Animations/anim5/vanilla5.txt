@@ -1,0 +1,89 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Neon Light</title>
+</head>
+
+<body>
+  <div class="neon-light" id="neonLight">
+    <h3>Move Cursor In Div</h3>
+    <div class="neon-glow" id="neonGlow"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//script
+document.addEventListener("DOMContentLoaded", function () {
+  const neonLight = document.getElementById("neonLight");
+  const neonGlow = document.getElementById("neonGlow");
+
+  neonLight.addEventListener("mousemove", function (event) {
+    const x = event.clientX;
+    const y = event.clientY;
+
+    neonGlow.style.left = x + "px";
+    neonGlow.style.top = y + "px";
+    neonGlow.style.borderColor = getRandomColor();
+  });
+
+  function getRandomColor() {
+    const colors = ["#f06", "#0f6", "#06f", "#f60", "#60f", "#6f0"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+});
+
+
+//css
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #c9c9c9;
+  overflow: hidden;
+}
+
+.neon-light {
+  position: relative;
+  cursor: none;
+}
+
+.neon-light h3 {
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+
+.neon-glow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+

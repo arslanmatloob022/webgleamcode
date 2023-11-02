@@ -1,0 +1,72 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Light</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="neon-light" id="neonLight">
+        <h3>Move cursor in div</h3>
+        <div class="neon-glow"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//script
+const neonLight = document.getElementById("neonLight");
+
+function moveLight(event) {
+    const lightX = event.clientX - 1;
+    const lightY = event.clientY - 1;
+    const neonGlow = document.querySelector(".neon-glow");
+    neonGlow.style.left = `${lightX}px`;
+    neonGlow.style.top = `${lightY}px`;
+}
+
+neonLight.addEventListener("mousemove", moveLight);
+
+
+//css
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.neon-light {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+    cursor: default;
+}
+
+.neon-light h3 {
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+.neon-glow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: background 0.6s ease-in-out;
+    box-shadow: 0 0 10px 5px #ffffff;
+}
+
+.neon-light:hover .neon-glow {
+    background: linear-gradient(to right, #f06, #0f6, #06f, #f60, #60f, #6f0);
+}

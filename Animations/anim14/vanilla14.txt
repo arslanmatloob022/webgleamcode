@@ -1,0 +1,122 @@
+//jsx
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underwater Animation</title>
+    <link rel="stylesheet" href="UnderwaterAnimation.css">
+</head>
+
+<body>
+    <div class="underwater-animation" id="underwaterAnimation">
+        <h3>Water bubbles animation</h3>
+        <div class="wave"></div>
+    </div>
+    <script src="UnderwaterAnimation.js"></script>
+</body>
+
+</html>
+
+//script
+const bubblesContainer = document.getElementById("underwaterAnimation");
+
+function createBubbles() {
+    const numberOfBubbles = 50;
+
+    for (let i = 0; i < numberOfBubbles; i++) {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.style.width = `${Math.random() * 20 + 5}px`;
+        bubble.style.height = `${Math.random() * 20 + 5}px`;
+        bubble.style.left = `${Math.random() * 100}vw`;
+        bubble.style.animationDuration = `${Math.random() * 6 + 4}s`;
+        bubblesContainer.appendChild(bubble);
+    }
+}
+
+createBubbles();
+
+function repelBubbles(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    const bubbleElements = bubblesContainer.getElementsByClassName("bubble");
+    for (const bubble of bubbleElements) {
+        const bubbleRect = bubble.getBoundingClientRect();
+        const bubbleX = bubbleRect.left + bubbleRect.width / 2;
+        const bubbleY = bubbleRect.top + bubbleRect.height / 2;
+
+        const distance = Math.sqrt(
+            Math.pow(mouseX - bubbleX, 2) + Math.pow(mouseY - bubbleY, 2)
+        );
+        const repelForce = 100 / distance;
+        const repelX = (mouseX - bubbleX) * repelForce;
+        const repelY = (mouseY - bubbleY) * repelForce;
+
+        bubble.style.left = bubbleRect.left + repelX + "px";
+        bubble.style.top = bubbleRect.top + repelY + "px";
+    }
+}
+
+document.addEventListener("mousemove", repelBubbles);
+
+
+//css
+.underwater-animation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #5bc0de;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: repeating-linear-gradient(
+    45deg,
+    #29a2c7,
+    #5bc0de 10px,
+    #4da0b0 10px,
+    #4da0b0 20px
+  );
+  animation: wave 4s infinite;
+}
+
+.bubble {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: float 5s infinite;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 50% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+

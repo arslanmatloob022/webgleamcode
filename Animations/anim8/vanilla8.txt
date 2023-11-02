@@ -1,0 +1,60 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Explosion Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="particle-explosion" id="particleExplosion">
+        <h3>Particles explosion animation</h3>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+//css
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Explosion Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="particle-explosion" id="particleExplosion">
+        <h3>Particles explosion animation</h3>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+const particleExplosion = document.getElementById("particleExplosion");
+
+function createParticle() {
+    const colors = ["#ff6b6b", "#f9ca24", "#7ed6df", "#686de0", "#FDA7DF"];
+    const particle = document.createElement("div");
+    particle.className = "particle";
+    particle.style.left = `${Math.random() * window.innerWidth}px`;
+    particle.style.top = `${Math.random() * window.innerHeight}px`;
+    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.setProperty("--x", `${Math.random() * 200 - 100}`);
+    particle.style.setProperty("--y", `${Math.random() * 200 - 100}`);
+    particleExplosion.appendChild(particle);
+
+    setTimeout(() => {
+        particleExplosion.removeChild(particle);
+    }, 1000);
+}
+
+setInterval(createParticle, 200);

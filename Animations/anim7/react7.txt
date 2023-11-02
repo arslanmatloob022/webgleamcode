@@ -1,0 +1,75 @@
+//jsx
+import React, { useState } from "react";
+import "./NeonLight.css";
+
+const NeonLight = () => {
+    const [lightPosition, setLightPosition] = useState({ x: 0, y: 0 });
+    const colors = ["#f06", "#0f6", "#06f", "#f60", "#60f", "#6f0"];
+
+    const moveLight = (event) => {
+        const lightX = event.clientX - 1;
+        const lightY = event.clientY - 1;
+        setLightPosition({ x: lightX, y: lightY });
+    };
+
+    const lightStyle = {
+        left: `${lightPosition.x}px`,
+        top: `${lightPosition.y}px`,
+        width: "10px",
+        height: "10px",
+        background: colors[Math.floor(Math.random() * colors.length)],
+        transition: "background 0.6s ease-in-out",
+        position: "absolute",
+        borderRadius: "50%",
+        pointerEvents: "none",
+        boxShadow: "0 0 10px 5px #ffffff",
+        zIndex: "9999",
+    };
+
+    return (
+        <div className="neon-light" onMouseMove={moveLight}>
+            <h3>Move cursor in div</h3>
+            <div className="neon-glow" style={lightStyle}></div>
+        </div>
+    );
+};
+
+export default NeonLight;
+
+
+//css
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.neon-light {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+    cursor: default;
+}
+
+.neon-light h3 {
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+.neon-glow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: background 0.6s ease-in-out;
+    box-shadow: 0 0 10px 5px #ffffff;
+}
+
+.neon-light:hover .neon-glow {
+    background: linear-gradient(to right, #f06, #0f6, #06f, #f60, #60f, #6f0);
+}

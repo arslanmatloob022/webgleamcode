@@ -1,0 +1,102 @@
+//jsx
+import React, { useState, useEffect } from "react";
+import "./LightAnimation.css";
+
+const LightAnimation = () => {
+  const [lights, setLights] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(createLight, 2000);
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 50000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const createLight = () => {
+    const light = {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size: Math.floor(Math.random() * 8) + 3,
+    };
+    light.style = {
+      left: `${light.x}px`,
+      top: `${light.y}px`,
+      width: `${light.size}px`,
+      height: `${light.size}px`,
+    };
+
+    setLights((prevLights) => [...prevLights, light]);
+
+    setTimeout(() => {
+      setLights((prevLights) => prevLights.slice(1));
+    }, 50000);
+  };
+
+  return (
+    <div className="light-animation">
+      <h3>Shinning mid-night stars animation</h3>
+      {lights.map((light, index) => (
+        <div
+          key={index}
+          className="light"
+          style={light.style}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+export default LightAnimation;
+
+//css
+.light-animation {
+  width: 100%;
+  height: 92vh;
+  overflow: hidden;
+  position: relative;
+  background-image: url("sky.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+
+.light {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: flicker 5s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    width: 3px;
+    height: 3px;
+    box-shadow: 0px 0px 4px 1px #fffbca;
+    opacity: 1;
+  }
+  25% {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0px 0px 2px 1px #fffbca;
+    opacity: 0.8;
+  }
+  50% {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0px 0px 3px 1px #fffbca;
+    opacity: 0.9;
+  }
+  75% {
+    width: 6px;
+    height: 6px;
+    box-shadow: 0px 0px 2px 1px #fffbca;
+    opacity: 1;
+  }
+}
+

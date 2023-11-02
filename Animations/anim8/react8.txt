@@ -1,0 +1,76 @@
+//jsx
+import React, { useEffect } from "react";
+import "./ParticleExplosion.css";
+
+const ParticleExplosion = () => {
+    useEffect(() => {
+        const interval = setInterval(createParticle, 200);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    const createParticle = () => {
+        const colors = ["#ff6b6b", "#f9ca24", "#7ed6df", "#686de0", "#FDA7DF"];
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = `${Math.random() * window.innerWidth}px`;
+        particle.style.top = `${Math.random() * window.innerHeight}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.setProperty("--x", `${Math.random() * 200 - 100}`);
+        particle.style.setProperty("--y", `${Math.random() * 200 - 100}`);
+        document.getElementById("particleExplosion").appendChild(particle);
+
+        setTimeout(() => {
+            document.getElementById("particleExplosion").removeChild(particle);
+        }, 1000);
+    };
+
+    return (
+        <div className="particle-explosion" id="particleExplosion">
+            <h3>Particles explosion animation</h3>
+        </div>
+    );
+};
+
+export default ParticleExplosion;
+
+
+
+//css
+.particle-explosion {
+    width: 100vw;
+    height: 93vh;
+    position: relative;
+    background-color: #414142;
+    overflow: hidden;
+}
+
+.particle-explosion h3 {
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ff6b6b;
+    animation: explode 2s linear infinite;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0);
+        opacity: 0;
+    }
+}
+
+

@@ -1,0 +1,113 @@
+//Html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Animation</title>
+    <link rel="stylesheet" href="LightAnimation.css">
+</head>
+
+<body>
+    <div class="light-animation" id="lightAnimation">
+        <h3>Shinning mid-night stars animation</h3>
+    </div>
+    <script src="LightAnimation.js"></script>
+</body>
+
+</html>
+
+
+//css
+.light-animation {
+  width: 100%;
+  height: 92vh;
+  overflow: hidden;
+  position: relative;
+  background-image: url("sky.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+
+.light {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: flicker 5s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    width: 3px;
+    height: 3px;
+    box-shadow: 0px 0px 4px 1px #fffbca;
+    opacity: 1;
+  }
+  25% {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0px 0px 2px 1px #fffbca;
+    opacity: 0.8;
+  }
+  50% {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0px 0px 3px 1px #fffbca;
+    opacity: 0.9;
+  }
+  75% {
+    width: 6px;
+    height: 6px;
+    box-shadow: 0px 0px 2px 1px #fffbca;
+    opacity: 1;
+  }
+}
+
+
+//script
+const lights = [];
+
+function createLight() {
+  const light = {
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    size: Math.floor(Math.random() * 8) + 3,
+  };
+  light.style = {
+    left: `${light.x}px`,
+    top: `${light.y}px`,
+    width: `${light.size}px`,
+    height: `${light.size}px`,
+  };
+
+  lights.push(light);
+
+  setTimeout(() => {
+    lights.shift();
+  }, 50000);
+}
+
+function renderLights() {
+  const container = document.getElementById("lightAnimation");
+  container.innerHTML = "";
+  lights.forEach((light, index) => {
+    const div = document.createElement("div");
+    div.className = "light";
+    div.style.left = light.x + "px";
+    div.style.top = light.y + "px";
+    container.appendChild(div);
+  });
+}
+
+setInterval(() => {
+  createLight();
+  renderLights();
+}, 2000);
+
+

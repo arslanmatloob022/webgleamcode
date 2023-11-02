@@ -1,0 +1,133 @@
+//jsx
+import React, { useState, useEffect } from "react";
+import "./FallingStars.css";
+
+const FallingStars = () => {
+  const [stars, setStars] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(createStar, 80);
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const createStar = () => {
+    const star = {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      speed: 3 + Math.random() * 3,
+    };
+    setStars((prevStars) => [...prevStars, star]);
+  };
+
+  return (
+    <div className="falling-stars">
+      <h3>Shinning and moving stars</h3>
+      <div className="sun">
+        <img src="moon.png" alt="" />
+      </div>
+      {stars.map((star, index) => (
+        <div
+          key={index}
+          className="star"
+          style={{ left: star.x + "px", top: star.y + "px" }}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+export default FallingStars;
+
+
+//css
+.falling-stars {
+  position: relative;
+  width: 100%;
+  height: 92vh;
+  overflow: hidden;
+  background-color: #c5ddf8;
+}
+.falling-stars {
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+.star {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #ffcc00;
+  opacity: 0.6;
+  transition: all 0.2s ease-in-out;
+  clip-path: polygon(
+    50% 0%,
+    61% 38%,
+    100% 45%,
+    69% 69%,
+    79% 100%,
+    50% 83%,
+    21% 100%,
+    31% 69%,
+    0% 45%,
+    39% 38%
+  );
+  transition: all;
+  animation: fall 35s linear infinite, rotate 8s infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh);
+  }
+  100% {
+    transform: translateY(300vh);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sun {
+  position: absolute;
+  opacity: 0.6;
+  top: 50%;
+  left: 46%;
+  width: 80px;
+  height: 80px;
+  animation: rotatesun 20s infinite linear;
+}
+.sun img {
+  width: 80px;
+  height: 80px;
+}
+
+.rays line {
+  background-color: #fffb00;
+  border-radius: 50%;
+  animation: ray-pulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes rotatesun {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ray-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+

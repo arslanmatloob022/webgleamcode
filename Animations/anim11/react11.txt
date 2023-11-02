@@ -1,0 +1,118 @@
+//jsx
+import React, { useEffect, useState } from "react";
+import "./ParticleContainer.css";
+
+const ParticleContainer = () => {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    // Create initial particles
+    createParticles();
+
+    // Update particle positions every 1 second
+    const interval = setInterval(updateParticles, 1000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  const createParticles = () => {
+    const newParticles = [];
+    // Create 50 particles with random positions
+    for (let i = 0; i < 50; i++) {
+      newParticles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        color: getRandomColor(),
+      });
+    }
+    setParticles(newParticles);
+  };
+
+  const updateParticles = () => {
+    // Update particle positions randomly
+    const updatedParticles = particles.map((particle) => ({
+      ...particle,
+      x: particle.x + Math.random() * 10 - 5,
+      y: particle.y + Math.random() * 10 - 5,
+    }));
+
+    // Ensure particles stay within the screen boundaries
+    const boundedParticles = updatedParticles.map((particle) => ({
+      ...particle,
+      x: Math.max(0, Math.min(window.innerWidth, particle.x)),
+      y: Math.max(0, Math.min(window.innerHeight, particle.y)),
+    }));
+
+    setParticles(boundedParticles);
+  };
+
+  const getRandomColor = () => {
+    // Generate a random RGB color
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  return (
+    <div className="particle-container">
+      <h3>Sider shaped particles</h3>
+      {particles.map((particle, index) => (
+        <div
+          key={index}
+          className="particle"
+          style={{ left: particle.x + "px", top: particle.y + "px", background: particle.color }}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+export default ParticleContainer;
+
+
+<style scoped>
+.particle-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.particle-container h3 {
+  color: #2e2e2e;
+  text-align: center;
+  z-index: 1;
+}
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+</style>
+
+.particle-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.particle-container h3 {
+  color: #2e2e2e;
+  text-align: center;
+  z-index: 1;
+}
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+</style>

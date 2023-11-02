@@ -1,0 +1,159 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Stars</title>
+    <link rel="stylesheet" href="FallingStars.css">
+</head>
+
+<body>
+    <div class="falling-stars" id="fallingStars">
+        <h3>Shinning and moving stars</h3>
+        <div class="sun">
+            <img src="moon.png" alt="" />
+        </div>
+    </div>
+    <script src="FallingStars.js"></script>
+</body>
+
+</html>
+
+//script
+const stars = [];
+
+function createStar() {
+  const star = {
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    speed: 3 + Math.random() * 3,
+  };
+  stars.push(star);
+  setTimeout(() => {
+    stars.shift();
+  }, 10000);
+}
+
+function updateStars() {
+  stars.forEach((star) => {
+    star.y += star.speed;
+    if (star.y > window.innerHeight) {
+      star.y = -10;
+      star.x = Math.random() * window.innerWidth;
+    }
+  });
+}
+
+function renderStars() {
+  const container = document.getElementById("fallingStars");
+  container.innerHTML = "";
+  stars.forEach((star, index) => {
+    const div = document.createElement("div");
+    div.className = "star";
+    div.style.left = star.x + "px";
+    div.style.top = star.y + "px";
+    container.appendChild(div);
+  });
+}
+
+setInterval(() => {
+  createStar();
+}, 80);
+
+setInterval(() => {
+  updateStars();
+  renderStars();
+}, 1000 / 60);
+
+
+
+//css
+.falling-stars {
+  position: relative;
+  width: 100%;
+  height: 92vh;
+  overflow: hidden;
+  background-color: #c5ddf8;
+}
+.falling-stars {
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+.star {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #ffcc00;
+  opacity: 0.6;
+  transition: all 0.2s ease-in-out;
+  clip-path: polygon(
+    50% 0%,
+    61% 38%,
+    100% 45%,
+    69% 69%,
+    79% 100%,
+    50% 83%,
+    21% 100%,
+    31% 69%,
+    0% 45%,
+    39% 38%
+  );
+  transition: all;
+  animation: fall 35s linear infinite, rotate 8s infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh);
+  }
+  100% {
+    transform: translateY(300vh);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sun {
+  position: absolute;
+  opacity: 0.6;
+  top: 50%;
+  left: 46%;
+  width: 80px;
+  height: 80px;
+  animation: rotatesun 20s infinite linear;
+}
+.sun img {
+  width: 80px;
+  height: 80px;
+}
+
+.rays line {
+  background-color: #fffb00;
+  border-radius: 50%;
+  animation: ray-pulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes rotatesun {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ray-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+

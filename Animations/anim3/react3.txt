@@ -1,0 +1,90 @@
+//JSX
+import React, { useEffect } from "react";
+import "./App.css";
+
+function App() {
+  useEffect(() => {
+    const particlesContainer = document.getElementById("particles-container");
+
+    function createParticle() {
+      const size = Math.random() * 15 + 10;
+      const animationDuration = Math.random() * 5 + 2;
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+
+      const particle = document.createElement("div");
+      particle.className = "particle";
+      particle.style.width = size + "px";
+      particle.style.height = size + "px";
+      particle.style.left = x + "px";
+      particle.style.top = y + "px";
+
+      particlesContainer.appendChild(particle);
+
+      setTimeout(() => {
+        particle.remove();
+      }, animationDuration * 1000);
+    }
+
+    const particleInterval = setInterval(createParticle, 100);
+
+    return () => clearInterval(particleInterval);
+  }, []);
+
+  return (
+    <div className="container">
+      <h3>Fire Work Animation</h3>
+      <div id="particles-container"></div>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+//CSS
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+.container h3 {
+  text-align: center;
+  z-index: 1000;
+  color: #fff;
+}
+
+.particle {
+  position: absolute;
+  background-color: #3498db;
+  border-radius: 50%;
+  pointer-events: none;
+  overflow: hidden;
+  transform-origin: center;
+  animation: float 3s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
