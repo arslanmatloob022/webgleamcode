@@ -1,11 +1,11 @@
 //jsx
-import React, { useState } from 'react';
-import './LoginForm.css';
+import React, { useState } from "react";
+import "./LoginForm.css"; // Import your CSS file
 
 const LoginForm = ({ closeLoginForm }) => {
-  const [showPassword, setShowPassword] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -18,15 +18,97 @@ const LoginForm = ({ closeLoginForm }) => {
 
   return (
     <div className="form_container">
+      <div className="formHeader"></div>
       <i className="uil uil-times form_close" onClick={closeLoginForm}></i>
+
+      {/* Login Form */}
       {showLoginForm && (
         <div className="form login_form">
-          {/* ... Login Form content ... */}
+          <form>
+            <div className="table-head">
+              <h2>Login</h2>
+            </div>
+            <div className="input_box">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                required
+              />
+              <i className="uil uil-envelope-alt email"></i>
+            </div>
+            <div className="input_box">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                required
+              />
+              <i className="uil uil-lock password"></i>
+              <i
+                onClick={togglePassword}
+                className={`icon pw_hide ${
+                  showPassword ? "uil-eye" : "uil-eye-slash"
+                }`}
+              ></i>
+            </div>
+            <div className="option_field">
+              <span className="checkbox">
+                <input type="checkbox" id="check" />
+                <label htmlFor="check">Remember me</label>
+              </span>
+              <a href="#" className="forgot_pw">
+                Forgot password?
+              </a>
+            </div>
+            <button className="button">Login</button>
+            <div className="signupBtn">
+              <p>Don't Have Account?</p>
+              <a onClick={toggleForms}>Register Now!</a>
+            </div>
+          </form>
         </div>
       )}
+
+      {/* Signup Form */}
       {showSignupForm && (
         <div className="form signup_form row">
-          {/* ... Signup Form content ... */}
+          <form>
+            <div className="table-head">
+              <h2>Register Now</h2>
+            </div>
+            {/* Signup Form */}
+      {showSignupForm && (
+        <div className="form signup_form row">
+          <form>
+            <div className="table-head">
+              <h2>Register Now</h2>
+            </div>
+            <div className="input-boxes">
+              <div className="input_box">
+                <input
+                  type="text"
+                  placeholder="Enter fullname"
+                  required
+                />
+                <i className="uil uil-user email"></i>
+              </div>
+              <div className="input_box">
+                <input
+                  type="email"
+                  placeholder="Enter email"
+                  required
+                />
+                <i className="uil uil-envelope-alt email"></i>
+              </div>
+            </div>
+
+            {/* More input boxes for address, date of birth, gender, occupation, and password */}
+            
+            <button className="button">Register</button>
+            <div className="signupBtn">
+              <p>Already Have an Account?</p>
+              <a onClick={toggleForms}>Login Now!</a>
+            </div>
+          </form>
         </div>
       )}
     </div>
