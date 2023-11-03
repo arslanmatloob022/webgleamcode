@@ -1,0 +1,102 @@
+//html
+<div class="search-container">
+  <div id="searchBar" class="search-bar">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search..."
+    />
+    <i class="fas fa-search"></i>
+  </div>
+  <div id="searchOptions" class="search-options">
+    <!-- Search options go here -->
+  </div>
+</div>
+
+
+//css
+.search-container {
+  position: relative;
+  width: 300px;
+}
+
+.search-bar {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-bar.active {
+  width: 360px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.search-bar i {
+  margin-left: 10px;
+  color: #4caf50;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.search-bar.active i {
+  transform: rotate(90deg);
+}
+
+.search-options {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: none;
+  /* Add styles for search options */
+}
+
+
+//script
+const searchBar = document.getElementById("searchBar");
+const searchInput = document.getElementById("searchInput");
+const searchOptions = document.getElementById("searchOptions");
+
+let isActive = false;
+
+function toggleSearch() {
+  isActive = !isActive;
+  if (isActive) {
+    searchBar.classList.add("active");
+    searchOptions.style.display = "block";
+  } else {
+    searchBar.classList.remove("active");
+    searchOptions.style.display = "none";
+  }
+}
+
+searchBar.addEventListener("click", function(event) {
+  toggleSearch();
+  event.stopPropagation();
+});
+
+searchInput.addEventListener("click", function(event) {
+  event.stopPropagation();
+});
+
+document.addEventListener("click", function() {
+  if (isActive) {
+    toggleSearch();
+  }
+});
+

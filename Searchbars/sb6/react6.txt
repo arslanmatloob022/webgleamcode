@@ -1,0 +1,102 @@
+//jsx
+import React, { useState } from "react";
+import "./SearchBar.css"; // Import the corresponding CSS file
+
+const SearchBar = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleInput = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const search = () => {
+    console.log("Searching for: " + searchQuery);
+    // Add your search logic here
+  };
+
+  const toggleSearch = () => {
+    setIsActive(!isActive);
+  };
+
+  const showBtn = () => {
+    return searchQuery.length > 0 ? "block" : "none";
+  };
+
+  return (
+    <section>
+      <div className={`search-bar ${isActive ? "active" : ""}`}>
+        <div className="search-icon" onClick={toggleSearch}>
+          <i className="fas fa-search"></i>
+        </div>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleInput}
+        />
+        <button className="searchbtn" style={{ display: showBtn() }} onClick={search}>
+          Search
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default SearchBar;
+
+
+//css
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 5px 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  z-index: 1;
+  transition: width 0.3s ease;
+}
+
+.search-bar.active {
+  width: 300px;
+}
+
+.search-bar .search-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.search-bar input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding: 6px 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar .searchbtn {
+  background-color: #4caf50;
+  display: none;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 0px 25px 25px 0px;
+  cursor: pointer;
+  z-index: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar.active .searchbtn {
+  display: block;
+}
+
+.search-bar .searchbtn:hover {
+  background-color: #45a049;
+}
+
+/* Font Awesome Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");

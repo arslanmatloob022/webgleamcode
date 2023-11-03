@@ -1,0 +1,98 @@
+//html
+<section>
+  <div class="search-bar" id="searchBar">
+    <div class="search-icon" id="searchIcon">
+      <i class="fas fa-search"></i>
+    </div>
+    <input
+      type="text"
+      placeholder="Search..."
+      id="searchInput"
+    />
+    <button class="searchbtn" id="searchBtn">Search</button>
+  </div>
+</section>
+
+//css
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 5px 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  z-index: 1;
+  transition: width 0.3s ease;
+}
+
+.search-bar.active {
+  width: 300px;
+}
+
+.search-bar .search-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.search-bar input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding: 6px 8px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar .searchbtn {
+  background-color: #4caf50;
+  display: none;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 0px 25px 25px 0px;
+  cursor: pointer;
+  z-index: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar.active .searchbtn {
+  display: block;
+}
+
+.search-bar .searchbtn:hover {
+  background-color: #45a049;
+}
+
+
+//script
+const searchBar = document.getElementById("searchBar");
+const searchIcon = document.getElementById("searchIcon");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+
+let isActive = false;
+
+function toggleSearch() {
+  isActive = !isActive;
+  searchBar.classList.toggle("active", isActive);
+  if (isActive) {
+    searchInput.focus();
+  }
+}
+
+function handleInput() {
+  const show = searchInput.value.length > 0 ? "block" : "none";
+  searchBtn.style.display = show;
+}
+
+function search() {
+  const searchTerm = searchInput.value;
+  console.log("Searching for: " + searchTerm);
+  // Add your search logic here
+}
+
+searchIcon.addEventListener("click", toggleSearch);
+searchInput.addEventListener("input", handleInput);
+searchBtn.addEventListener("click", search);

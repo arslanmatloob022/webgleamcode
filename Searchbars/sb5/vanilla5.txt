@@ -1,0 +1,98 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Unique Search Bar</title>
+</head>
+<body>
+  <section>
+    <div class="unique-search-bar">
+      <input
+        type="text"
+        placeholder="Search..."
+        id="searchInput"
+      />
+      <button id="searchButton">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+//css
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.unique-search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  padding: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  background-image: linear-gradient(to right, #ed6498 0%, #4682b4 0%);
+  transition: background-image 0.3s ease;
+}
+
+.unique-search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  background: transparent;
+  border-radius: 25px;
+}
+
+.unique-search-bar input::placeholder {
+  color: #e4e4e4;
+}
+
+.unique-search-bar button {
+  background: transparent;
+  border: none;
+  color: #e4e4e4;
+  padding: 10px 15px;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+}
+
+.unique-search-bar button:hover {
+  color: #ed6498;
+  transition: color 0.3s ease;
+}
+
+
+
+//script
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("searchInput");
+  const searchButton = document.getElementById("searchButton");
+
+  searchInput.addEventListener("input", function () {
+    updateGradient();
+  });
+
+  searchButton.addEventListener("click", function () {
+    const searchQuery = searchInput.value;
+    console.log("Searching for: " + searchQuery);
+    // Add your search logic here
+  });
+
+  function updateGradient() {
+    const inputLength = searchInput.value.length;
+    const gradient = `linear-gradient(to right, #ed6498 ${inputLength}%, #4682b4 ${inputLength}%)`;
+    document.querySelector(".unique-search-bar").style.backgroundImage = gradient;
+  }
+});

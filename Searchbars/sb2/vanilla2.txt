@@ -1,0 +1,82 @@
+//jsx
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Search Bar</title>
+</head>
+
+<body>
+  <section>
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search..."
+        id="searchInput"
+      />
+      <button id="searchButton">Search</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//script
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("searchInput");
+  const searchButton = document.getElementById("searchButton");
+
+  searchButton.addEventListener("click", function () {
+    const searchQuery = searchInput.value;
+    search(searchQuery);
+  });
+
+  function search(searchQuery) {
+    // Handle search functionality
+    console.log("Searching for: " + searchQuery);
+    // Add your search logic here
+  }
+});
+
+
+
+//css
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 25px;
+}
+
+.search-bar button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #45a049;
+}
