@@ -1,0 +1,170 @@
+//jsx
+import React, { useState } from "react";
+import "./ThirdProductCard.css"; // Import the corresponding CSS file
+
+const ThirdProductCard = () => {
+  const [activeImage, setActiveImage] = useState(0);
+  const [showQuickView, setShowQuickView] = useState(false);
+
+  const product = {
+    images: [
+      require("@/assets/Images/e1.jpg"),
+      require("@/assets/Images/e2.jpg"),
+      require("@/assets/Images/e3.jpg"),
+    ],
+    name: "Product Name",
+    price: 60.2353,
+    description: "Here you will write the description of your product",
+  };
+
+  const changeActiveImage = (index) => {
+    setActiveImage(index);
+  };
+
+  const addToCart = () => {
+    // Implement your add to cart logic here
+    console.log(`Added ${product.name} to cart`);
+  };
+
+  const openQuickView = () => {
+    setShowQuickView(true);
+  };
+
+  const closeQuickView = () => {
+    setShowQuickView(false);
+  };
+
+  return (
+    <div className="product-card">
+      <div className="product-images">
+        <div className="main-image">
+          <img src={product.images[activeImage]} alt="Product" />
+        </div>
+        <div className="thumbnail-images">
+          {product.images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt="Thumbnail"
+              className={index === activeImage ? "active-thumbnail" : ""}
+              onMouseOver={() => changeActiveImage(index)}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="product-details">
+        <h2>{product.name}</h2>
+        <p className="price">${product.price.toFixed(2)}</p>
+        <div className="buttons">
+          <button className="add-to-cart" onClick={addToCart}>
+            Add to Cart
+          </button>
+          <button className="quick-view" onClick={openQuickView}>
+            Quick View
+          </button>
+        </div>
+      </div>
+      {showQuickView && (
+        <div className="quick-view-modal">
+          <div className="main-image">
+            <img src={product.images[activeImage]} alt="Product" />
+          </div>
+          <h2>{product.name}</h2>
+          <p className="description">{product.description}</p>
+          <p className="price">${product.price.toFixed(2)}</p>
+          <button className="add-to-cart" onClick={addToCart}>
+            Add to Cart
+          </button>
+          <button className="close-modal" onClick={closeQuickView}>
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ThirdProductCard;
+
+
+//css
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+  margin: 20px;
+}
+
+.product-images {
+  position: relative;
+  text-align: center;
+}
+
+.main-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.thumbnail-images {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.thumbnail-images img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.product-details {
+  padding: 20px;
+  text-align: center;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-to-cart,
+.quick-view,
+.close-modal {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart:hover,
+.quick-view:hover,
+.close-modal:hover {
+  background-color: #45a049;
+}
+
+.quick-view-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+
+.buttons {
+  display: flex;
+}

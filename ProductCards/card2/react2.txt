@@ -1,0 +1,133 @@
+
+//jsx
+import React, { useState } from 'react';
+import './SecondProductCard.css'; // Import the corresponding CSS file
+
+const SecondProductCard = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const product = {
+    images: [
+      require('@/assets/Images/e3.jpg'),
+      require('@/assets/Images/e1.jpg'),
+      require('@/assets/Images/e2.jpg'),
+    ],
+    name: 'Mobile Phone',
+    description: 'Product description goes here.',
+    price: 60,
+  };
+
+  const addToCart = () => {
+    // Implement your add to cart logic here
+    alert(`Added ${product.name} to cart`);
+  };
+
+  return (
+    <div className={`product-card ${isFlipped ? 'flipped' : ''}`}>
+      <div className="product-rotate">
+        <div className="product-images">
+          {product.images.map((image, index) => (
+            <div className="product-image" key={index}>
+              <img src={image} alt="Product Image" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="product-details">
+        <h2>{product.name}</h2>
+        <p className="description">{product.description}</p>
+        <p className="price">${product.price.toFixed(2)}</p>
+        <button onClick={addToCart}>Add to Cart</button>
+      </div>
+    </div>
+  );
+};
+
+export default SecondProductCard;
+
+
+//csss
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  margin: 20px;
+  background-color: #fff;
+}
+
+.product-rotate {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  perspective: 1000px;
+  position: relative;
+}
+
+.product-images {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.product-images .product-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-images .product-image img {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card:hover .product-images {
+  transform: rotateY(180deg);
+}
+
+.product-details {
+  padding: 20px;
+  text-align: center;
+}
+
+.product-details h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  margin-bottom: 12px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}

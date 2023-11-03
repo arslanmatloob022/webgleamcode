@@ -1,0 +1,448 @@
+import React, { useState } from 'react';
+import './FifthProductCard.css';
+
+const FifthProductCard = () => {
+  const [showRating, setShowRating] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [userRatings, setUserRatings] = useState([]);
+  const [sliderOpen, setSliderOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const eproduct = {
+    name: 'Mobile Phone',
+    price: 100,
+    description: 'Here we will write the description of our product that help to define our product',
+    images: [
+      require('@/assets/Images/e1.jpg'),
+      require('@/assets/Images/e2.jpg'),
+      require('@/assets/Images/e3.jpg')
+    ]
+  };
+
+  const averageRating = () => {
+    const totalRatings = userRatings.length;
+    if (totalRatings === 0) {
+      return 0;
+    }
+    const sumRatings = userRatings.reduce((total, rating) => total + rating, 0);
+    return Math.round(sumRatings / totalRatings);
+  };
+
+  const addToCart = () => {
+    alert('Product Added to Cart!');
+  };
+
+  const toggleRating = () => {
+    setShowRating(!showRating);
+  };
+
+  const rateProduct = (rating) => {
+    setSelectedRating(rating);
+    setShowRating(false); // Hide the rating stars after selection
+    setUserRatings([...userRatings, rating]); // Store the user's rating
+  };
+
+  const openSlider = () => {
+    setSliderOpen(true);
+  };
+
+  const closeSlider = () => {
+    setSliderOpen(false);
+  };
+
+  const prevImage = () => {
+    setCurrentImage((currentImage - 1 + eproduct.images.length) % eproduct.images.length);
+  };
+
+  const nextImage = () => {
+    setCurrentImage((currentImage + 1) % eproduct.images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((currentSlide - 1 + eproduct.images.length) % eproduct.images.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((currentSlide + 1) % eproduct.images.length);
+  };
+
+  const openDetails = () => {
+    setDetailsOpen(true);
+  };
+
+  const closeDetails = () => {
+    setDetailsOpen(false);
+  };
+
+  return (
+    <section className="main">
+      <div className="product-card">
+        <div className="image-container">
+          <img
+            className="image-size"
+            src={eproduct.images[currentImage].default}
+            alt="Product"
+            onClick={openSlider}
+          />
+          <div className="image-nav">
+            <button className="prev-btn" onClick={prevImage} onMouseOver={prevImage}>
+              &#10094;
+            </button>
+            <button className="next-btn" onClick={nextImage} onMouseOver={nextImage}>
+              &#10095;
+            </button>
+          </div>
+        </div>
+
+        <div className="product-card-content">
+          <h3>{eproduct.name}</h3>
+          <div className="product-data">
+            <p className="price">$ {eproduct.price}</p>
+            <div className="product-reviews">
+              <div className="product-total-rating">
+                <span className="total-rating-label">Rating:</span>
+                <div className="total-rating-stars">
+                  {[...Array(5)].map((_, index) => (
+                    <i
+                      key={index}
+                      className={`star-icon fa fa-star ${index < averageRating() ? 'rated-star' : ''}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="action-btn">
+            <button className="cart-btn" onClick={addToCart}>
+              Add to <span><i className="uil uil-shopping-cart-alt" /></span>
+            </button>
+            <button className="detail-btn" onClick={openDetails}>
+              Details
+            </button>
+            <button className={`review-button like-btn ${showRating ? 'blur-button' : ''}`} onClick={toggleRating}>
+              <i className="fa fa-star" /> Rate
+            </button>
+            {showRating && (
+              <div className="rating-stars">
+                {[...Array(5)].map((_, index) => (
+                  <i
+                    key={index}
+                    className={`star-icon fa fa-star ${index < selectedRating ? 'active' : ''}`}
+                    onClick={() => rateProduct(index + 1)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {sliderOpen && (
+          <div className="image-slider">
+            <button onClick={prevSlide} className="prev-slide-btn slide-btn">&#10094;</button>
+            <img className="slider-img" src={eproduct.images[currentSlide].default} alt="Product" />
+            <button onClick={nextSlide} className="next-slide-btn slide-btn">&#10095;</button>
+            <button className="close-slider" onClick={closeSlider}>&times;</button>
+          </div>
+        )}
+
+        {detailsOpen && (
+          <div className="details-popup">
+            <h3>{eproduct.name}</h3>
+            <p>{eproduct.description}</p>
+            <button onClick={closeDetails}>Close</button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default FifthProductCard;
+
+
+//css
+.blur-button {
+  opacity: 0.6;
+}
+.review-button {
+  position: relative;
+}
+.rating-stars {
+  font-size: 20px;
+  right: 14px;
+  bottom: 20px;
+  position: absolute;
+  z-index: 1;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  transform: scale(1.02);
+  backdrop-filter: blur(8px);
+}
+.product-reviews {
+  display: flex;
+}
+.product-total-rating {
+  display: flex;
+  align-items: center;
+  color: #e44d26;
+}
+.star-icon {
+  color: #e44d26;
+}
+.star-icon.rated-star {
+  color: gold; /* Change the color for rated stars */
+}
+.main {
+  position: relative;
+}
+.product-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(228, 77, 38, 0.4);
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.image-size {
+  width: 100%;
+  height: 200px;
+}
+
+.image-container:hover img {
+  transform: scale(1.2);
+}
+.product-data {
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-nav {
+  position: absolute;
+  bottom: 40%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.image-nav button {
+  padding: 10px 14px;
+  width: 24px;
+  padding: 1px;
+  border: none;
+  cursor: pointer;
+}
+
+.prev-btn {
+  padding: 10px 14px;
+  border-radius: 0 100% 100% 0;
+}
+.next-btn {
+  padding: 10px 14px;
+  border-radius: 100% 0 0 100%;
+}
+
+.close-slider {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: 10px;
+  right: 42%;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #fff;
+  cursor: pointer;
+}
+.product-card button {
+  border: 1px solid #e44d26;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background-color: #fff5f2;
+  color: #e44d26;
+  transition: background-color 0.3s ease;
+}
+.product-card button:active {
+  border: 1px solid #c5371e;
+}
+.action-btn {
+  font-size: 1rem;
+  display: flex;
+  gap: 3px;
+}
+.action-btn .like-btn {
+  gap: 5px;
+  width: 35%;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  align-items: center;
+}
+.action-btn button {
+  padding: 4px;
+}
+.cart-btn {
+  font-size: 1rem;
+  width: 35%;
+  border-radius: 20px 0 0 20px;
+}
+
+.like-btn:focus {
+  outline: #c5371e;
+  border: 1px solid #c5371e;
+}
+.detail-btn {
+  width: 30%;
+}
+
+.product-card button:hover {
+  background-color: #ffffff;
+}
+
+/* Product Likes*/
+
+.liked-heart path {
+  fill: red; /* Change to the desired color */
+}
+.heart-icon {
+  width: 24px;
+  height: 24px;
+  fill: #888;
+  transition: color 0.3s ease;
+}
+
+.product-card-content {
+  padding: 15px;
+}
+
+.product-card h3 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover h3 {
+  color: #e44d26;
+}
+
+.product-card p.price {
+  font-size: 1.3rem;
+  margin: 10px 0;
+  color: #e44d26;
+}
+
+/* Image pop up slider*/
+.image-slider {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 6px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slider-img {
+  height: 100%;
+  width: 100%;
+}
+.image-slider img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.slide-btn {
+  position: absolute;
+  padding: 4px 6px;
+  width: 20px;
+}
+.prev-slide-btn {
+  left: 0;
+  border-radius: 0px 10px 10px 0px;
+}
+.next-slide-btn {
+  right: 0;
+  border-radius: 10px 0px 0px 10px;
+}
+
+/* Product Detail Pop up*/
+.details-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.details-popup {
+  width: 96%;
+  height: 96%;
+  display: flex;
+  flex-direction: column;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 20px;
+  text-align: left;
+}
+
+.details-popup h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.details-popup p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.details-popup button {
+  display: block;
+  margin-top: 10px;
+  background-color: #e44d26;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.details-popup button:hover {
+  background-color: #c5371e;
+}
+
