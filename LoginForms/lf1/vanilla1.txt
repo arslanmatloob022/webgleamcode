@@ -3,23 +3,163 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <link rel="stylesheet" href="LoginForm.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <style>
+    /* Styles from your provided CSS */
+    /* ... */
+  </style>
 </head>
 
 <body>
-    <div class="form_container">
-        <i class="uil uil-times form_close"></i>
-        <div class="form login_form">
-            <!-- ... Login Form content ... -->
-        </div>
-        <div class="form signup_form">
-            <!-- ... Signup Form content ... -->
-        </div>
+  <div class="form_container">
+    <i class="uil uil-times form_close" id="closeForm"></i>
+    <!-- Login From -->
+    <div id="loginForm" class="form login_form">
+      <h2>Login</h2>
+      <div class="input_box">
+        <input type="email" id="loginEmail" placeholder="Enter your email" required />
+        <i class="uil uil-envelope-alt email"></i>
+      </div>
+      <div class="input_box">
+        <input type="password" id="loginPassword" class="password" placeholder="Enter your password" required />
+        <i class="uil uil-lock password"></i>
+        <i id="togglePassword" class="icon pw_hide uil-eye"></i>
+      </div>
+      <div class="option_field">
+        <span class="checkbox">
+          <input type="checkbox" id="check" />
+          <label for="check">Remember me</label>
+        </span>
+        <a href="#" id="forgetPassword" class="forgot_pw">Forgot password?</a>
+      </div>
+      <button id="loginButton" class="button">Login</button>
+      <div class="signupBtn">
+        <p>Don't Have Account?</p>
+        <a id="toggleForms">Register Now !</a>
+      </div>
     </div>
-    <script src="LoginForm.js"></script>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form signup_form">
+      <h2>Register Now</h2>
+      <div class="input_box">
+        <input type="text" id="signupName" placeholder="Enter your Name" required />
+        <i class="uil uil-user email"></i>
+      </div>
+      <div class="input_box">
+        <input type="email" id="signupEmail" placeholder="Enter your email" required />
+        <i class="uil uil-envelope-alt email"></i>
+      </div>
+      <div class="input_box">
+        <input type="password" id="signupPassword" class="password" placeholder="Enter your password" required />
+        <i class="uil uil-lock password"></i>
+        <i id="toggleSignupPassword" class="icon pw_hide uil-eye"></i>
+      </div>
+      <button id="signupButton" class="button">Register</button>
+      <div class="signupBtn">
+        <p>Already Have an Account?</p>
+        <a id="toggleForms">Login Now!</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript logic for handling form interactions
+    const closeFormBtn = document.getElementById('closeForm');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const signupName = document.getElementById('signupName');
+    const signupEmail = document.getElementById('signupEmail');
+    const signupPassword = document.getElementById('signupPassword');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const toggleSignupPasswordBtn = document.getElementById('toggleSignupPassword');
+    const toggleFormsBtns = document.querySelectorAll('#toggleForms');
+
+    closeFormBtn.addEventListener('click', () => {
+      closeFormBtn.addEventListener('click', () => {
+  const formContainer = document.querySelector('.form_container');
+  formContainer.style.display = 'none';
+});
+
+    });
+
+    togglePasswordBtn.addEventListener('click', () => {
+      const pwInput = document.querySelector('.password');
+const pwToggleBtn = document.querySelector('.pw_hide');
+
+pwToggleBtn.addEventListener('click', () => {
+  if (pwInput.type === 'password') {
+    pwInput.type = 'text';
+    pwToggleBtn.classList.remove('uil-eye-slash');
+    pwToggleBtn.classList.add('uil-eye');
+  } else {
+    pwInput.type = 'password';
+    pwToggleBtn.classList.remove('uil-eye');
+    pwToggleBtn.classList.add('uil-eye-slash');
+  }
+});
+
+    });
+
+    toggleSignupPasswordBtn.addEventListener('click', () => {
+      const signupPwInput = document.querySelector('.signup_password');
+const signupPwToggleBtn = document.querySelector('.signup_pw_hide');
+
+signupPwToggleBtn.addEventListener('click', () => {
+  if (signupPwInput.type === 'password') {
+    signupPwInput.type = 'text';
+    signupPwToggleBtn.classList.remove('uil-eye-slash');
+    signupPwToggleBtn.classList.add('uil-eye');
+  } else {
+    signupPwInput.type = 'password';
+    signupPwToggleBtn.classList.remove('uil-eye');
+    signupPwToggleBtn.classList.add('uil-eye-slash');
+  }
+});
+
+    });
+
+    toggleFormsBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+       const loginForm = document.querySelector('.login_form');
+const signupForm = document.querySelector('.signup_form');
+const loginBtn = document.querySelector('.loginBtn');
+const signupBtn = document.querySelector('.signupBtn');
+
+loginBtn.addEventListener('click', () => {
+  loginForm.style.display = 'block';
+  signupForm.style.display = 'none';
+});
+
+signupBtn.addEventListener('click', () => {
+  loginForm.style.display = 'none';
+  signupForm.style.display = 'block';
+});
+
+      });
+    });
+
+    // Login button click event listener and logic
+    const loginButton = document.getElementById('loginButton');
+    loginButton.addEventListener('click', () => {
+      const email = loginEmail.value;
+      const password = loginPassword.value;
+      // Login form submission logic
+    });
+
+    // Signup button click event listener and logic
+    const signupButton = document.getElementById('signupButton');
+    signupButton.addEventListener('click', () => {
+      const name = signupName.value;
+      const email = signupEmail.value;
+      const password = signupPassword.value;
+      // Signup form submission logic
+    });
+  </script>
 </body>
 
 </html>
