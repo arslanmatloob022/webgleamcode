@@ -3,60 +3,133 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <link rel="stylesheet" href="LoginForm.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <style>
+    /* Add your styles here */
+  </style>
+  <title>Login Form</title>
 </head>
 
 <body>
-    <div class="form_container">
-        <i class="uil uil-times form_close"></i>
-        <div class="form login_form">
-            <!-- ... Login Form content ... -->
+  <div class="form_container">
+    <div class="formHeader"></div>
+    <i class="uil uil-times form_close" id="closeForm"></i>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="form login_form">
+      <form>
+        <div class="table-head">
+          <h2>Login</h2>
         </div>
-        <div class="form signup_form row">
-            <!-- ... Signup Form content ... -->
+        <div class="input_box">
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <i class="uil uil-envelope-alt email"></i>
         </div>
+        <div class="input_box">
+          <input type="password" id="password" class="password" placeholder="Enter your password" required />
+          <i class="uil uil-lock password"></i>
+          <i id="togglePassword" class="icon pw_hide uil-eye"></i>
+        </div>
+        <div class="option_field">
+          <span class="checkbox">
+            <input type="checkbox" id="check" />
+            <label for="check">Remember me</label>
+          </span>
+          <a href="#" id="forgetpswrd" class="forgot_pw">Forgot password?</a>
+        </div>
+
+        <button class="button" id="loginButton">Login</button>
+        <div class="signupBtn">
+          <p>Don't Have Account?</p>
+          <a id="toggleForms">Register Now!</a>
+        </div>
+      </form>
     </div>
-    <script src="LoginForm.js"></script>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form signup_form row" style="display: none;">
+      <form>
+        <div class="table-head">
+          <h2>Register Now</h2>
+        </div>
+        <div class="input-boxes">
+          <div class="input_box">
+            <input type="text" id="fullname" placeholder="Enter fullname" required />
+            <i class="uil uil-user email"></i>
+          </div>
+          <div class="input_box">
+            <input type="email" id="signupEmail" placeholder="Enter email" required />
+            <i class="uil uil-envelope-alt email"></i>
+          </div>
+        </div>
+
+        <!-- More input boxes for address, date of birth, gender, occupation, and password -->
+        
+        <button class="button" id="registerButton">Register</button>
+        <div class="signupBtn">
+          <p>Already Have an Account?</p>
+          <a id="toggleForms">Login Now!</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const closeFormButton = document.getElementById("closeForm");
+    const toggleFormsButton = document.getElementById("toggleForms");
+    const togglePasswordButton = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    closeFormButton.addEventListener("click", () => {
+      const closeFormButton = document.getElementById("closeForm");
+const formContainer = document.querySelector(".form_container");
+
+closeFormButton.addEventListener("click", () => {
+  formContainer.style.display = "none";
+});
+
+    });
+
+    toggleFormsButton.addEventListener("click", () => {
+      const loginForm = document.querySelector(".login_form");
+const signupForm = document.querySelector(".signup_form");
+const loginLink = document.querySelector(".loginBtn");
+const signupLink = document.querySelector(".signupBtn");
+
+loginLink.addEventListener("click", () => {
+  loginForm.style.display = "block";
+  signupForm.style.display = "none";
+});
+
+signupLink.addEventListener("click", () => {
+  loginForm.style.display = "none";
+  signupForm.style.display = "block";
+});
+
+    });
+
+    togglePasswordButton.addEventListener("click", () => {
+      // Toggle password visibility logic here
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePasswordButton.classList.remove("uil-eye");
+        togglePasswordButton.classList.add("uil-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        togglePasswordButton.classList.remove("uil-eye-slash");
+        togglePasswordButton.classList.add("uil-eye");
+      }
+    });
+
+    // Additional form validation and submission logic can be added here
+  </script>
 </body>
 
 </html>
-
-//script
-const closeLoginForm = () => {
-  document.querySelector('.form_container').style.display = 'none';
-};
-
-document.querySelector('.form_close').addEventListener('click', closeLoginForm);
-
-// Toggle password visibility
-let showPassword = false;
-const togglePassword = () => {
-  const passwordInput = document.querySelector('.password');
-  const eyeIcon = document.querySelector('.pw_hide');
-  showPassword = !showPassword;
-  if (showPassword) {
-    passwordInput.type = 'text';
-    eyeIcon.className = 'icon pw_hide uil-eye';
-  } else {
-    passwordInput.type = 'password';
-    eyeIcon.className = 'icon pw_hide uil-eye-slash';
-  }
-};
-
-document.querySelector('.pw_hide').addEventListener('click', togglePassword);
-
-// Toggle between login and signup forms
-const toggleForms = () => {
-  const loginForm = document.querySelector('.login_form');
-  const signupForm = document.querySelector('.signup_form');
-  loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
-  signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
-};
-
-document.querySelector('.signupBtn a').addEventListener('click', toggleForms);
 
 
 //css
