@@ -1,37 +1,181 @@
 //jsx
 import React, { useState } from 'react';
-import './LoginForm.css';
+import './Form.css'; // Import the CSS file
 
-const LoginForm = ({ closeLoginForm }) => {
-  const [showPassword, setShowPassword] = useState(false);
+const Form = () => {
   const [showLoginForm, setShowLoginForm] = useState(true);
-  const [showSignupForm, setShowSignupForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleForms = () => {
+    setShowLoginForm(!showLoginForm);
+  };
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const toggleForms = () => {
-    setShowLoginForm(!showLoginForm);
-    setShowSignupForm(!showSignupForm);
+  const closeForm = () => {
+    // Logic to close the form
   };
 
   return (
     <div className="form_container">
-      <i className="uil uil-times form_close" onClick={closeLoginForm}></i>
-      {showLoginForm && (
+      <div className="formHeader"></div>
+      <i className="uil uil-power form_close" onClick={closeForm}></i>
+
+      {showLoginForm ? (
         <div className="form login_form">
-          {/* ... Login Form content ... */}
-        </div>
-      )}
-      {showSignupForm && (
+          <form action="#">
+            {/* Login Form Content */}
+            <div className="table-head">
+              <h2>Login</h2>
+            </div>
+            <div className="input_box max-margin">
+             <div className="input_box max-margin">
+  <input type="email" placeholder="Enter your email" required />
+  <i className="uil uil-envelope-alt email"></i>
+</div>
+<div className="input_box max-margin">
+  <input
+    type="password"
+    className="password"
+    placeholder="Enter your password"
+    required
+  />
+  <i className="uil uil-lock password"></i>
+  <i
+    onClick={togglePassword}
+    className={`icon pw_hide ${
+      showPassword ? 'uil-eye' : 'uil-eye-slash'
+    }`}
+  ></i>
+</div>
+<div className="option_field">
+  <span className="checkbox">
+    <input type="checkbox" id="check" />
+    <label htmlFor="check">Remember me</label>
+  </span>
+  <a href="#" id="forgetpswrd" className="forgot_pw">
+    Forgot password?
+  </a>
+</div>
+<button className="button">Login</button>
+<div className="signupBtn">
+  <p>Don't Have Account?</p>
+  <a onClick={toggleForms}>Register Now!</a>
+</div>
+
+            </div>
+            <div className="social-login">
+  <div className="social-icons">
+    <i className="uil uil-facebook socials"></i>
+    <p>login with</p>
+  </div>
+  <div className="social-icons">
+    <i className="uil uil-google socials"></i>
+    <p>login with</p>
+  </div>
+  <div className="social-icons">
+    <i className="uil uil-twitter socials"></i>
+    <p>login with</p>
+  </div>
+</div>
+</form>
+</div>
+);
+}
+: (
         <div className="form signup_form row">
-          {/* ... Signup Form content ... */}
-        </div>
-      )}
-    </div>
-  );
-};
+          <form action="#">
+            {/* Signup Form Content */}
+            <div className="table-head">
+              <h2>Register Now</h2>
+            </div>
+            {/* ... (signup form input fields) */}
+<div className="input-boxes light-margin">
+  <div className="input_box">
+    <input type="text" placeholder="Firstname" required />
+    <i className="uil uil-user email"></i>
+  </div>
+  <div className="input_box">
+    <input type="text" placeholder="Secondname" required />
+    <i className="uil uil-user email"></i>
+  </div>
+</div>
+
+<div className="input-boxes light-margin">
+  <div className="input_box">
+    <input type="email" placeholder="Email" required />
+    <i className="uil uil-envelope-alt email"></i>
+  </div>
+</div>
+
+<div className="input-boxes light-margin">
+  <div className="input_box">
+    <input type="text" placeholder="Full Address" required />
+    <i className="uil uil-bag-alt email"></i>
+  </div>
+</div>
+
+<div className="input-boxes light-margin">
+  <div className="input_box signuppwd">
+    <input
+      type="password"
+      className="password"
+      placeholder="Enter password"
+      required
+    />
+    <i className="uil uil-lock password"></i>
+    <i
+      onClick={this.togglePassword}
+      className={`icon pw_hide ${
+        this.state.showPassword ? 'uil-eye' : 'uil-eye-slash'
+      }`}
+    ></i>
+  </div>
+
+  <div className="input_box signuppwd">
+    <input
+      type="password"
+      className="password"
+      placeholder="Confirm password"
+      required
+    />
+    <i className="uil uil-lock password"></i>
+    <i
+      onClick={this.togglePassword}
+      className={`icon pw_hide ${
+        this.state.showPassword ? 'uil-eye' : 'uil-eye-slash'
+      }`}
+    ></i>
+  </div>
+</div>
+
+<button className="button">Register</button>
+<div className="signupBtn">
+  <p>Already Have an Account?</p>
+  <a onClick={this.toggleForms}>Login Now!</a>
+</div>
+<div className="social-login">
+  <div className="social-icons">
+    <i className="uil uil-facebook socials"></i>
+    <p>Signup with</p>
+  </div>
+  <div className="social-icons">
+    <i className="uil uil-google socials"></i>
+    <p>Signup with</p>
+  </div>
+  <div className="social-icons">
+    <i className="uil uil-twitter socials"></i>
+    <p>Signup with</p>
+  </div>
+</div>
+</form>
+</div>
+</div>
+);
+}
+}
 
 export default LoginForm;
 
