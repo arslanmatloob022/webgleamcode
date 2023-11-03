@@ -1,0 +1,136 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>CRM System</title>
+</head>
+
+<body>
+    <div class="top-navbar">
+        <div class="menu-icon" id="menuIcon">
+            <i class="fa fa-bars"></i>
+        </div>
+        <div class="logo">CRM System</div>
+        <div class="menu" id="menu">
+            <a href="/">Home</a>
+            <a href="/contacts">Contacts</a>
+            <a href="/opportunities">Opportunities</a>
+            <a href="/tasks">Tasks</a>
+            <a href="/reports">Reports</a>
+            <a href="/support">Support</a>
+        </div>
+        <div class="user-profile">
+            <span id="username"></span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//css
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    animation: slide 0.3s;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #0071eb;
+}
+
+.user-profile button {
+    margin-left: 20px;
+    padding: 8px 16px;
+    background-color: #fff;
+    color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-profile button:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.show-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    width: 30%;
+    left: 0;
+    background-color: #007bff;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .top-navbar {
+        position: relative;
+    }
+}
+
+
+//script
+document.addEventListener('DOMContentLoaded', function () {
+    const menuIcon = document.getElementById('menuIcon');
+    const menu = document.getElementById('menu');
+    const usernameElement = document.getElementById('username');
+    const logoutBtn = document.getElementById('logoutBtn');
+    let isMenuOpen = false;
+
+    menuIcon.addEventListener('click', function () {
+        isMenuOpen = !isMenuOpen;
+        menu.style.display = isMenuOpen ? 'flex' : 'none';
+    });
+
+    // Example username passed as a prop
+    const username = "John Doe";
+    usernameElement.textContent = `Welcome, ${username}`;
+
+    logoutBtn.addEventListener('click', function () {
+        // Implement logout functionality
+        console.log("User logged out.");
+    });
+});

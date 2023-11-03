@@ -1,0 +1,277 @@
+import React, { useState } from 'react';
+import './Header.css'; // Import the corresponding CSS file
+
+const Header = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [notifications] = useState(3);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const openSearch = () => {
+    setShowSearch(!showSearch);
+  };
+
+  const search = () => {
+    // Implement search functionality
+    console.log('Searching for: ' + searchQuery);
+  };
+
+  const openMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  return (
+    <div className="header">
+      <div className="upper-header">
+        <div className="user-info">
+          <img
+            src="@/assets/logo.png"
+            alt="User Avatar"
+            className="user-avatar"
+          />
+          <span className="user-name">John Doe</span>
+        </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search..."
+            className={`search-input ${showSearch ? 'active' : ''}`}
+          />
+          <button onClick={search} className="search-button">
+            <i className="fa fa-search"></i>
+          </button>
+        </div>
+        <div className="notifications">
+          <div className="notify">
+            <i className="fa fa-bell" aria-hidden="true"></i>
+            <sup>{notifications}</sup>
+          </div>
+          <div className="playlist">
+            <i className="fa fa-list" aria-hidden="true"></i>
+            <span>
+              <p>Watch Later</p>
+            </span>
+          </div>
+        </div>
+        <i
+          className="fa fa-bars menuBtn"
+          onClick={openMenu}
+          aria-hidden="true"
+        ></i>
+      </div>
+
+      <div className={`lower-header ${showMenu ? 'show' : ''}`}>
+        <div className="nav-links">
+          <a href="/">Home</a>
+          <a href="/movies">Movies</a>
+          <a href="/tv-shows">TV Shows</a>
+          <a href="/music">Music</a>
+          {/* Add more navigation links as needed */}
+        </div>
+        <div className="user-actions">
+          <button className="action-button">
+            <i className="fa fa-heart"></i> Favorites
+          </button>
+          <button className="action-button">
+            <i className="fa fa-cog"></i> Settings
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
+
+//css
+.header {
+  margin: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upper-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: #79f3b0;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 200px;
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.search-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #ddd;
+}
+.notifications {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.notifications i {
+  color: #ffcc00;
+}
+.playlist {
+  display: flex;
+  gap: 6px;
+}
+.playlist i {
+  color: #ffcc00;
+}
+
+.lower-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  animation: slide 0.3s;
+}
+@keyframes slide {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;
+}
+
+.user-actions {
+  display: flex;
+}
+
+.action-button {
+  background-color: #ffcc00;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #333;
+  color: #ffcc00;
+}
+
+.menuBtn {
+  display: none;
+  font-size: 1.4rem;
+  color: #ddd;
+  cursor: pointer;
+  color: #ffcc00;
+}
+.menuBtn:hover {
+  color: #ddd;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .upper-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 40%;
+    left: 30%;
+  }
+  .search-input.active {
+    display: block;
+  }
+
+  .notifications .playlist {
+    display: none;
+  }
+  .header {
+    position: relative;
+  }
+  .nav-links {
+    display: none;
+    background-color: #333;
+    flex-direction: column;
+    position: absolute;
+    gap: 16px;
+    width: 30%;
+    top: 100%;
+    left: 0;
+  }
+  .nav-links.show {
+    display: block;
+  }
+  .nav-links a {
+    margin: 16px 6px;
+    display: block;
+  }
+
+  .user-actions {
+    display: none;
+  }
+  .menuBtn {
+    margin: 0;
+    display: block;
+  }
+}

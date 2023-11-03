@@ -1,0 +1,122 @@
+//jsx
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './TopNavbar.css'; // Assuming you have a separate CSS file
+
+const TopNavbar = ({ username }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const logout = () => {
+    // Implement logout functionality
+    console.log("User logged out.");
+  };
+
+  return (
+    <div className="top-navbar">
+      <div className="menu-icon" onClick={toggleMenu}>
+        <i className="fa fa-bars"></i>
+      </div>
+      <div className="logo">CRM System</div>
+      <div className={`menu ${isMenuOpen ? 'show-menu' : ''}`}>
+        <Link to="/">Home</Link>
+        <Link to="/contacts">Contacts</Link>
+        <Link to="/opportunities">Opportunities</Link>
+        <Link to="/tasks">Tasks</Link>
+        <Link to="/reports">Reports</Link>
+        <Link to="/support">Support</Link>
+      </div>
+      <div className="user-profile">
+        <span>Welcome, {username}</span>
+        <button onClick={logout}>Logout</button>
+      </div>
+    </div>
+  );
+};
+
+export default TopNavbar;
+
+
+//css
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  display: none; /* Hide the menu icon by default on larger screens */
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  animation: slide 0.3s;
+}
+@keyframes slide {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.menu a {
+  color: #fff;
+  padding: 6px 8px;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  background-color: #0071eb;
+}
+.user-profile button {
+  margin-left: 20px;
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-profile button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  .menu-icon {
+    display: block;
+  }
+  .top-navbar {
+    position: relative;
+  }
+  .show-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    width: 30%;
+    left: 0;
+    background-color: #007bff;
+    padding: 10px;
+  }
+}
