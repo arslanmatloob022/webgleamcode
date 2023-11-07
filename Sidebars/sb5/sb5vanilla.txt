@@ -1,0 +1,218 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sidebar</title>
+</head>
+
+<body>
+  <div class="sidebar collapsed">
+    <div class="toggle-btn" id="toggleBtn">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="profile">
+      <div class="user-img">
+        <img src="./icons/singleLogoLight.png" alt="" />
+      </div>
+      <div class="userinfo">
+        <h5>User Name</h5>
+        <h6>user-email</h6>
+      </div>
+      <i class="fa fa-shopping-cart"></i>
+    </div>
+
+    <div class="menu">
+      <div class="diamond">
+        <i class="fas fa-tshirt fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-tshirt fa-1x"></i>
+        </div>
+        <h6>Clothings</h6>
+      </div>
+      <div class="diamond">
+        <i class="fas fa-laptop fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-laptop fa-1x"></i>
+        </div>
+        <h6>Laptops</h6>
+      </div>
+      <div class="diamond">
+        <i class="fas fa-mobile-alt fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-mobile-alt fa-1x"></i>
+        </div>
+        <h6>Mobiles</h6>
+      </div>
+      <div class="diamond">
+        <i class="fas fa-shoe-prints fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-shoe-prints fa-1x"></i>
+        </div>
+        <h6>Shoes</h6>
+      </div>
+      <div class="diamond">
+        <i class="fas fa-gift fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-gift fa-1x"></i>
+        </div>
+        <h6>Gift Packs</h6>
+      </div>
+      <div class="diamond">
+        <i class="fa fa-shopping-bag fa-1x"></i>
+        <div class="hexagon">
+          <i class="fa fa-shopping-bag fa-1x"></i>
+        </div>
+        <h6>Top Bags</h6>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//css
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("./icons/bgimg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.sidebar {
+  width: 50px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  position: fixed;
+  overflow: hidden;
+  z-index: 1;
+  transition: width 0.3s ease;
+  padding-top: 40px;
+}
+
+.collapsed {
+  width: 50px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-btn {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(7px);
+  font-size: 20px;
+  transition: all 0.3s ease;
+  top: 0;
+  right: 0;
+}
+
+.toggle-btn i {
+  animation: opacityOn 1.8s ease;
+}
+
+.sidebar .menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar .diamond {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.diamond:hover {
+  backdrop-filter: blur(2px);
+  border-left: 3px solid rgb(216, 51, 10);
+}
+
+.sidebar .hexagon {
+  width: 50px;
+  height: 58px;
+  backdrop-filter: blur(10px);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 8px;
+  font-size: 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.sidebar .hexagon:hover {
+  background-color: rgb(85, 185, 175);
+}
+
+.sidebar.collapsed .hexagon {
+  transform: scale(0);
+}
+
+/* Define unique icon classes */
+.fa-tshirt:before {
+  content: "\f553";
+}
+
+.fa-laptop:before {
+  content: "\f109";
+}
+
+.fa-mobile-alt:before {
+  content: "\f3cd";
+}
+
+.fa-shoe-prints:before {
+  content: "\f54b";
+}
+
+.fa-gift:before {
+  content: "\f06b";
+}
+
+.fa-shopping-bag:before {
+  content: "\f290";
+}
+
+/* Add more unique icon styles as needed */
+
+@keyframes opacityOn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+//script
+const toggleBtn = document.getElementById('toggleBtn');
+const sidebar = document.querySelector('.sidebar');
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+});

@@ -1,0 +1,177 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sidebar</title>
+</head>
+
+<body>
+  <div class="sidebar collapsed">
+    <div class="logo">
+      <img src="./icons/WDlogo.png" alt="" />
+    </div>
+    <div class="toggle-btn" id="toggleBtn">
+      <i class="fa fa-home" aria-hidden="true"></i>
+    </div>
+    <div class="menu">
+      <div class="hexagon">
+        <div class="icon">
+          <div class="circle">
+            <i class="fa fa-tachometer-alt" aria-hidden="true"></i>
+          </div>
+          Dashboard
+        </div>
+        <div class="icon">
+          <div class="circle">
+            <i class="fa fa-users" aria-hidden="true"></i>
+          </div>
+          Members
+        </div>
+        <div class="icon">
+          <div class="circle">
+            <i class="fa fa-chart-pie" aria-hidden="true"></i>
+          </div>
+          Sells
+        </div>
+        <div class="icon">
+          <div class="circle">
+            <i class="fa fa-address-book" aria-hidden="true"></i>
+          </div>
+          Addresses
+        </div>
+        <div class="icon">
+          <div class="circle">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </div>
+          Settings
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+//script
+const toggleBtn = document.getElementById('toggleBtn');
+const sidebar = document.querySelector('.sidebar');
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+});
+
+
+//css
+.sidebar {
+  width: 170px;
+  height: 100dvh;
+  background-color: #ececec;
+  color: white;
+  position: fixed;
+  z-index: 1;
+  transition: width 0.3s ease;
+  padding-top: 20px;
+  overflow: hidden;
+}
+.menu {
+  width: 100%;
+}
+.logo img {
+  margin-left: 10px;
+  width: 150px;
+  height: 60px;
+}
+.collapsed {
+  width: 50px;
+}
+
+.sidebar .toggle-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  background-color: #2a9;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  border-bottom: 2px dotted #ececec;
+}
+
+.sidebar.collapsed .toggle-btn {
+  width: 50px;
+  justify-content: flex-start;
+}
+.icon {
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  gap: 15px;
+  cursor: pointer;
+  color: #2a9;
+  width: 98%;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon:hover {
+  transform: scale(1.01);
+  box-shadow: 1px 1px 10px 1px #2a9;
+}
+
+.sidebar .hexagon {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.sidebar .circle {
+  width: 38px;
+  height: 38px;
+  background-color: #2a9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 3px;
+  font-size: 18px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .circle {
+  transform: scale(0);
+}
+
+/* Define unique icon classes */
+.fa-tachometer-alt:before {
+  content: "\f02d";
+}
+
+.fa-users:before {
+  content: "\f0c0";
+}
+
+.fa-chart-pie:before {
+  content: "\f200";
+}
+
+.fa-address-book:before {
+  content: "\f2b9";
+}
+
+.fa-cog:before {
+  content: "\f013";
+}
+
+/* Add more unique icon styles as needed */
+

@@ -1,0 +1,175 @@
+<template>
+  <!--Sidebar Menu-->
+  <div class="Sidebar">
+    <div class="side-nav">
+      <div class="user">
+        <img src="./icons/logo.jpg" class="user-img" />
+        <div>
+          <h2>Arslan Matloob</h2>
+          <p>@raoarslanmatloob</p>
+        </div>
+        <img src="./icons/settings.png" class="star-img" />
+      </div>
+      <ul>
+        <li>
+          <img src="./icons/dash.png" />
+          <p>Dashboard</p>
+        </li>
+        <li>
+          <img src="./icons/dash.png" />
+          <p>Dashboard</p>
+        </li>
+        <li>
+          <img src="./icons/Lists.png" />
+          <p>Courses</p>
+        </li>
+        <li>
+          <img src="./icons/attempt.png" />
+          <p>Attempt</p>
+        </li>
+        <li>
+          <img src="./icons/iq.png" />
+          <p>Test IQ</p>
+        </li>
+        <li>
+          <img src="./icons/faqs.png" />
+          <p>FAQs</p>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <img src="./icons/goal.png" alt="" />
+          <p>Logout</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "sidebarfirst",
+};
+</script>
+
+<style scoped>
+.Sidebar {
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  height: 100vh;
+  /* backdrop-filter: blur(3px); */
+}
+.side-nav {
+  width: 70px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30px 15px;
+  background: rgba(39, 39, 39, 0.863);
+  /*backdrop-filter: blur(5px);*/
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  transition: width 0.2s;
+  z-index: 1000;
+  transition: all 0.4s ease-in-out;
+}
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60px;
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1000;
+  transition: all 0.5s ease-in-out;
+}
+.user div {
+  display: none;
+  z-index: 1000;
+  transition: all 0.5s ease-in-out;
+}
+.user h2 {
+  color: blueviolet;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 1000;
+  display: none;
+}
+.user p {
+  display: none;
+}
+.user-img {
+  width: 40px;
+  border-radius: 50%;
+  margin: auto;
+  transition: all 0.5s ease-in-out;
+  z-index: 1000;
+}
+.star-img {
+  width: 20px;
+  display: none;
+  z-index: 1000;
+}
+ul {
+  list-style: none;
+  padding: 0 15px;
+  z-index: 1000;
+}
+ul li {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+ul li:hover {
+  border-radius: 6px;
+  padding: 2px 8px;
+  background-color: #6666;
+  transform: translateX(8px);
+}
+ul li img {
+  width: 30px;
+  margin-right: 0px;
+}
+ul li p {
+  white-space: nowrap;
+  display: none;
+  color: white;
+  font: bold;
+}
+.side-nav:hover {
+  width: 250px;
+}
+.side-nav:hover .user div {
+  display: block;
+}
+.side-nav:hover .user {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+.side-nav:hover .star-img {
+  display: block;
+}
+.side-nav:hover .user-img {
+  margin: 0;
+}
+.side-nav:hover ul li p {
+  display: block;
+}
+.side-nav:hover ul li img {
+  margin-right: 10px;
+}
+.side-nav:hover ul li {
+  justify-content: flex-start;
+  transition: 0.3s;
+}
+</style>

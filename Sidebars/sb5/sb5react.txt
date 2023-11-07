@@ -1,0 +1,235 @@
+//jsx
+import React, { useState } from "react";
+import "./Sidebar.css"; // Import the corresponding CSS file
+
+const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [openBar, setOpenBar] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+    if (isCollapsed) {
+      setOpenBar(false);
+    } else {
+      setOpenBar(true);
+    }
+  };
+
+  return (
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="toggle-btn" onClick={toggleSidebar}>
+        {openBar ? (
+          <i className="fa fa-xmark" aria-hidden="true"></i>
+        ) : (
+          <i className="fas fa-bars"></i>
+        )}
+      </div>
+      <div className="profile" onClick={() => setOpenBar(!openBar)}>
+        <div className="user-img">
+          <img src="./icons/singleLogoLight.png" alt="" />
+        </div>
+        {openBar && (
+          <div className="userinfo">
+            <h5>User Name</h5>
+            <h6>user-email</h6>
+          </div>
+        )}
+        {openBar && (
+          <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+        )}
+      </div>
+
+      <div className="menu">
+        <div className="diamond">
+          {!openBar && <i className="fas fa-tshirt fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fas fa-tshirt fa-1x"></i>
+          </div>
+          {openBar && <h6>Clothings</h6>}
+        </div>
+        <div className="diamond">
+          {!openBar && <i className="fas fa-laptop fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fas fa-laptop fa-1x"></i>
+          </div>
+          {openBar && <h6>Laptops</h6>}
+        </div>
+        <div className="diamond">
+          {!openBar && <i className="fas fa-mobile-alt fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fas fa-mobile-alt fa-1x"></i>
+          </div>
+          {openBar && <h6>Mobiles</h6>}
+        </div>
+        <div className="diamond">
+          {!openBar && <i className="fas fa-shoe-prints fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fas fa-shoe-prints fa-1x"></i>
+          </div>
+          {openBar && <h6>Shoes</h6>}
+        </div>
+        <div className="diamond">
+          {!openBar && <i className="fas fa-gift fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fas fa-gift fa-1x"></i>
+          </div>
+          {openBar && <h6>Gift Packs</h6>}
+        </div>
+        <div className="diamond">
+          {!openBar && <i className="fa fa-shopping-bag fa-1x"></i>}
+          <div className="hexagon">
+            <i className="fa fa-shopping-bag fa-1x"></i>
+          </div>
+          {openBar && <h6>Top Bags</h6>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
+
+
+
+//css
+.sidebar {
+  width: 220px;
+  height: 100dvh;
+  background-image: url("./icons/bgimg.jpg");
+  color: white;
+  position: fixed;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: width 0.3s ease;
+  padding-top: 40px;
+}
+.profile {
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.profile:hover {
+  transform: scale(1.02);
+  border-bottom: 2px solid rgb(216, 51, 10);
+}
+.diamond i {
+  font-size: 22px;
+  margin-left: 25%;
+}
+.user {
+  display: block;
+}
+.user-img img {
+  width: 50px;
+  height: 50px;
+  margin: 6px 6px;
+}
+.collapsed {
+  width: 50px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-btn {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(7px);
+  font-size: 20px;
+  transition: all 0.3s ease;
+  top: 0;
+  right: 0;
+}
+.toggle-btn i {
+  animation: opacityOn 1.8s ease;
+}
+.collapsed .toggle-btn {
+  width: 50px;
+  justify-content: flex-start;
+}
+@keyframes opacityOn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.sidebar .menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar .diamond {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.diamond:hover {
+  backdrop-filter: blur(2px);
+  border-left: 3px solid rgb(216, 51, 10);
+}
+
+.sidebar .hexagon {
+  width: 50px;
+  height: 58px;
+  backdrop-filter: blur(10px);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 8px;
+  font-size: 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
+.sidebar .hexagon:hover {
+  background-color: rgb(85, 185, 175);
+}
+
+.sidebar.collapsed .hexagon {
+  transform: scale(0);
+}
+
+/* Define unique icon classes */
+.fa-tshirt:before {
+  content: "\f553";
+}
+
+.fa-laptop:before {
+  content: "\f109";
+}
+
+.fa-mobile-alt:before {
+  content: "\f3cd";
+}
+
+.fa-shoe-prints:before {
+  content: "\f54b";
+}
+
+.fa-gift:before {
+  content: "\f06b";
+}
+

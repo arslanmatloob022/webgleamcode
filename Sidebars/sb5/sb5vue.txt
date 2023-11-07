@@ -1,0 +1,217 @@
+<template>
+  <div class="sidebar" :class="{ collapsed: isCollapsed }">
+    <div class="toggle-btn" @click="toggleSidebar">
+      <i v-if="openBar" class="fa fa-xmark" aria-hidden="true"></i>
+      <i v-else class="fas fa-bars"></i>
+    </div>
+    <div class="profile">
+      <div class="user-img">
+        <img src="./icons/singleLogoLight.png" alt="" />
+      </div>
+      <div v-if="openBar" class="userinfo">
+        <h5>User Name</h5>
+        <h6>user-email</h6>
+      </div>
+      <i class="fa fa-shopping-cart" v-if="openBar" aria-hidden="true"></i>
+    </div>
+
+    <div class="menu">
+      <div class="diamond">
+        <i v-if="!openBar" class="fas fa-tshirt fa-1x"></i>
+        <div class="hexagon">
+          <i class="fas fa-tshirt fa-1x"></i>
+        </div>
+        <h6 v-if="openBar">Clothings</h6>
+      </div>
+      <div class="diamond">
+        <i v-if="!openBar" class="fas fa-laptop fa-1x"></i>
+        <div class="hexagon"><i class="fas fa-laptop fa-1x"></i></div>
+        <h6 v-if="openBar">Laptops</h6>
+      </div>
+      <div class="diamond">
+        <i v-if="!openBar" class="fas fa-mobile-alt fa-1x"></i>
+        <div class="hexagon"><i class="fas fa-mobile-alt fa-1x"></i></div>
+        <h6 v-if="openBar">Mobiles</h6>
+      </div>
+      <div class="diamond">
+        <i v-if="!openBar" class="fas fa-shoe-prints fa-1x"></i>
+        <div class="hexagon"><i class="fas fa-shoe-prints fa-1x"></i></div>
+        <h6 v-if="openBar">Shoes</h6>
+      </div>
+      <div class="diamond">
+        <i v-if="!openBar" class="fas fa-gift fa-1x"></i>
+        <div class="hexagon"><i class="fas fa-gift fa-1x"></i></div>
+        <h6 v-if="openBar">Gift Packs</h6>
+      </div>
+      <div class="diamond">
+        <i v-if="!openBar" class="fa fa-shopping-bag fa-1x"></i>
+        <div class="hexagon"><i class="fa fa-shopping-bag fa-1x"></i></div>
+        <h6 v-if="openBar">Top Bags</h6>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      isCollapsed: true,
+      openBar: false,
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.isCollapsed = !this.isCollapsed;
+      if (this.isCollapsed == true) {
+        this.openBar = false;
+      } else {
+        this.openBar = true;
+      }
+    },
+  },
+};
+</script>
+<style scoped>
+.sidebar {
+  width: 220px;
+  height: 100dvh;
+  background-image: url("./icons/bgimg.jpg");
+  color: white;
+  position: fixed;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: width 0.3s ease;
+  padding-top: 40px;
+}
+.profile {
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.profile:hover {
+  transform: scale(1.02);
+  border-bottom: 2px solid rgb(216, 51, 10);
+}
+.diamond i {
+  font-size: 22px;
+  margin-left: 25%;
+}
+.user {
+  display: block;
+}
+.user-img img {
+  width: 50px;
+  height: 50px;
+  margin: 6px 6px;
+}
+.collapsed {
+  width: 50px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-btn {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  backdrop-filter: blur(7px);
+  font-size: 20px;
+  transition: all 0.3s ease;
+  top: 0;
+  right: 0;
+}
+.toggle-btn i {
+  animation: opacityOn 1.8s ease;
+}
+.collapsed .toggle-btn {
+  width: 50px;
+  justify-content: flex-start;
+}
+@keyframes opacityOn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.sidebar .menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar .diamond {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.diamond:hover {
+  backdrop-filter: blur(2px);
+  border-left: 3px solid rgb(216, 51, 10);
+}
+
+.sidebar .hexagon {
+  width: 50px;
+  height: 58px;
+  backdrop-filter: blur(10px);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 8px;
+  font-size: 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
+.sidebar .hexagon:hover {
+  background-color: rgb(85, 185, 175);
+}
+
+.sidebar.collapsed .hexagon {
+  transform: scale(0);
+}
+
+/* Define unique icon classes */
+.fa-tshirt:before {
+  content: "\f553";
+}
+
+.fa-laptop:before {
+  content: "\f109";
+}
+
+.fa-mobile-alt:before {
+  content: "\f3cd";
+}
+
+.fa-shoe-prints:before {
+  content: "\f54b";
+}
+
+.fa-gift:before {
+  content: "\f06b";
+}
+
+/* Add more unique icon styles as needed */
+</style>

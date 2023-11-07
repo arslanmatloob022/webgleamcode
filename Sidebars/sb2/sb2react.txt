@@ -1,0 +1,156 @@
+import React, { useState } from "react";
+import "./Sidebar.css"; // Import the corresponding CSS file
+
+const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const selectMenuItem = (menuItem) => {
+    console.log("Selected Menu Item:", menuItem);
+    // Add your logic to handle menu item selection (e.g., route to the selected page)
+  };
+
+  return (
+    <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="logo">Logo</div>
+      <div className="toggle-btn" onClick={toggleSidebar}>
+        <i
+          className={`${
+            isCollapsed ? "fa fa-arrow-right" : "fa fa-arrow-left"
+          }`}
+          aria-hidden="true"
+        ></i>
+      </div>
+
+      <nav>
+        <ul>
+          <li onClick={() => selectMenuItem("dashboard")}>
+            <i className="fas fa-tachometer-alt"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Dashboard
+            </p>
+          </li>
+          <li onClick={() => selectMenuItem("leads")}>
+            <i className="fas fa-users"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Leads
+            </p>
+          </li>
+          <li onClick={() => selectMenuItem("opportunities")}>
+            <i className="fas fa-chart-pie"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Opportunities
+            </p>
+          </li>
+          <li onClick={() => selectMenuItem("contacts")}>
+            <i className="fas fa-address-book"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Contacts
+            </p>
+          </li>
+          <li onClick={() => selectMenuItem("quries")}>
+            <i className="fa fa-comments" aria-hidden="true"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Quries
+            </p>
+          </li>
+          <li onClick={() => selectMenuItem("response")}>
+            <i className="fa fa-paper-plane" aria-hidden="true"></i>
+            <p className={`collapsedLink ${isCollapsed ? "hidden" : ""}`}>
+              Response
+            </p>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
+};
+
+export default Sidebar;
+
+
+//css
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  position: fixed;
+  z-index: 1;
+}
+
+.collapsed {
+  width: 60px;
+}
+.collapsedLink {
+  display: none;
+}
+
+.sidebar .toggle-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 10px;
+  text-align: center;
+  background-color: #444;
+  font-size: 24px;
+  transition: all 0.8s ease;
+}
+
+.sidebar.collapsed .toggle-btn {
+  width: 60px;
+  justify-content: flex-start;
+}
+
+.sidebar .logo {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  transition: width 0.3s ease;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  display: flex;
+  padding: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.8s ease;
+  transition: transform 0.4s ease;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.sidebar nav ul li:hover {
+  background-color: #555;
+  transform: translateX(26px);
+}
+
+.sidebar nav ul li i {
+  font-size: 22px;
+  margin-right: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar.collapsed {
+    width: 70px;
+  }
+
+  .sidebar .logo {
+    display: none;
+  }
+
+  .sidebar nav ul li span {
+    display: none;
+  }
+}
