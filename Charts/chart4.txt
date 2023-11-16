@@ -1,0 +1,46 @@
+//paste these links of script within your application's <head> tag
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+//in your html to display the chart
+<canvas class="chart" id="chartID"> </canvas>
+
+
+//write the below data in your script and pass the id name to canvas in html
+   new Chart("chartID", {
+      type: "doughnut",
+      data: {
+        labels: [
+          "Fashion",
+          "Furniture",
+          "Jewellry",
+          "Cosmetics",
+          "Home-Decore",
+        ],
+        datasets: [
+          {
+            label: "My First Dataset",
+            data: [300, 50, 100, 220, 190],
+            backgroundColor: [
+              "rgb(255, 99, 132)",
+              "rgb(54, 162, 235)",
+              "rgb(255, 205, 86)",
+              "rgb(205, 205, 186)",
+              "rgb(155, 115, 186)",
+            ],
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          color: "black",
+          fontSize: 24,
+          display: true,
+          text: "Doughnut Chart",
+        },
+      },
+    });

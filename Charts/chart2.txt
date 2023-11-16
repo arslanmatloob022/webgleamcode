@@ -1,0 +1,43 @@
+//paste these links of script within your application's <head> tag
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+//in your html to display the chart
+<canvas class="chart" id="chartID"> </canvas>
+
+
+//write the below data in your script and pass the id name to canvas in html
+var contries = ["Italy", "France", "Spain", "USA", "Argentina"];
+    var production = [55, 49, 44, 24, 15];
+    var barColors = [
+      "rgba(118, 216, 221, 1.0)",
+      "rgba(118, 216, 221, 1.0)",
+      "rgba(118, 216, 221, 1.0)",
+      "rgba(118, 216, 221, 1.0)",
+      "rgba(118, 216, 221, 1.0)",
+    ];
+
+    // Bar chart
+    new Chart("chartID", {
+      type: "bar",
+      data: {
+        labels: contries,
+        datasets: [
+          {
+            backgroundColor: barColors,
+            data: production,
+          },
+        ],
+      },
+      options: {
+        legend: { display: true },
+        title: {
+          color: "black",
+          fontSize: 24,
+          display: true,
+          text: "Bar Chart",
+        },
+      },
+    });
